@@ -49,12 +49,12 @@ class _GameScreenState extends State<GameScreen> {
         body: Stack(
           children: <Widget>[
             Container(
-              color: Colors.green,
-              // decoration: BoxDecoration(
-              //     gradient: LinearGradient(
-              //         begin: Alignment.topLeft,
-              //         end: Alignment.bottomRight,
-              //         colors: [Colors.green, Colors.green])),
+              // color: Colors.green,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomLeft,
+                      colors: [Colors.red[900],Color(0xee000000)])),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -81,8 +81,8 @@ class _GameScreenState extends State<GameScreen> {
                         opacity: 0.1,
                         child: Image.asset(
                           'images/spider.png',
-                          height: 100,
-                          width: 100,
+                          height: 150,
+                          width: 150,
                         )),
                   ),
                   offset: Offset(20, -40),
