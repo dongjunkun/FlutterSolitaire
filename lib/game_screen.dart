@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:solitaire_flutter/card_column.dart';
 import 'package:solitaire_flutter/empty_card.dart';
 import 'package:solitaire_flutter/playing_card.dart';
@@ -39,151 +41,239 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green,
-      appBar: AppBar(
-        title: Text("Flutter Solitaire"),
-        elevation: 0.0,
-        backgroundColor: Colors.green,
-        actions: <Widget>[
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.refresh,
-                color: Colors.white,
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    return WillPopScope(
+      onWillPop: () {},
+      child: Scaffold(
+        body: Stack(
+          children: <Widget>[
+            Container(
+              color: Colors.green,
+              // decoration: BoxDecoration(
+              //     gradient: LinearGradient(
+              //         begin: Alignment.topLeft,
+              //         end: Alignment.bottomRight,
+              //         colors: [Colors.green, Colors.green])),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Transform.translate(
+                  offset: Offset(-100, 100),
+                  child: Transform.rotate(
+                    angle: pi * 0.1,
+                    child: Opacity(
+                        opacity: 0.1, child: Image.asset('images/spider.png')),
+                  ),
+                ),
               ),
             ),
-            splashColor: Colors.white,
-            onTap: () {
-              _initialiseGame();
-            },
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _buildCardDeck(),
-              _buildFinalDecks(),
-            ],
-          ),
-          SizedBox(
-            height: 16.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn1,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn1.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 1,
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Transform.translate(
+                  child: Transform.rotate(
+                    angle: -pi / 4 * 3,
+                    child: Opacity(
+                        opacity: 0.1,
+                        child: Image.asset(
+                          'images/spider.png',
+                          height: 100,
+                          width: 100,
+                        )),
+                  ),
+                  offset: Offset(20, -40),
                 ),
               ),
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn2,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn2.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 2,
+            ),
+             Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Transform.translate(
+                  child: Transform.rotate(
+                    angle: pi / 4 * 3,
+                    child: Opacity(
+                        opacity: 0.1,
+                        child: Image.asset(
+                          'images/spider.png',
+                          height: 50,
+                          width: 50,
+                        )),
+                  ),
+                  offset: Offset(20, -20),
                 ),
               ),
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn3,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn3.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 3,
+            ),
+            Column(
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).padding.top + 10,
                 ),
-              ),
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn4,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn4.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 4,
+                Row(
+                  children: <Widget>[
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8, right: 4.0, top: 8, bottom: 8),
+                        child: Image.asset(
+                          'images/logo.png',
+                          height: 36,
+                          width: 36,
+                        )),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 2),
+                      child: Text(
+                        "蜘蛛纸牌",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    )),
+                    InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.refresh,
+                          color: Colors.white,
+                        ),
+                      ),
+                      splashColor: Colors.white,
+                      onTap: () {
+                        _initialiseGame();
+                      },
+                    )
+                  ],
                 ),
-              ),
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn5,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn5.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 5,
+                SizedBox(
+                  height: 20.0,
                 ),
-              ),
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn6,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn6.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 6,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    _buildCardDeck(),
+                    _buildFinalDecks(),
+                  ],
                 ),
-              ),
-              Expanded(
-                child: CardColumn(
-                  cards: cardColumn7,
-                  onCardsAdded: (cards, index) {
-                    setState(() {
-                      cardColumn7.addAll(cards);
-                      int length = _getListFromIndex(index).length;
-                      _getListFromIndex(index)
-                          .removeRange(length - cards.length, length);
-                      _refreshList(index);
-                    });
-                  },
-                  columnIndex: 7,
+                SizedBox(
+                  height: 24.0,
                 ),
-              ),
-            ],
-          ),
-        ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn1,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn1.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 1,
+                      ),
+                    ),
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn2,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn2.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 2,
+                      ),
+                    ),
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn3,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn3.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 3,
+                      ),
+                    ),
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn4,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn4.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 4,
+                      ),
+                    ),
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn5,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn5.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 5,
+                      ),
+                    ),
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn6,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn6.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 6,
+                      ),
+                    ),
+                    Expanded(
+                      child: CardColumn(
+                        cards: cardColumn7,
+                        onCardsAdded: (cards, index) {
+                          setState(() {
+                            cardColumn7.addAll(cards);
+                            int length = _getListFromIndex(index).length;
+                            _getListFromIndex(index)
+                                .removeRange(length - cards.length, length);
+                            _refreshList(index);
+                          });
+                        },
+                        columnIndex: 7,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

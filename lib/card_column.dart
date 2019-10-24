@@ -29,10 +29,10 @@ class _CardColumnState extends State<CardColumn> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //alignment: Alignment.topCenter,
-      height: 13.0 * 15.0,
+      // alignment: Alignment.topCenter,
+      height: 360,
       width: 70.0,
-      margin: EdgeInsets.all(2.0),
+      padding: EdgeInsets.only(left:6.0,right: 2,top: 2,bottom: 2),
       child: DragTarget<Map>(
         builder: (context, listOne, listTwo) {
           return Stack(

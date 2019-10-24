@@ -31,7 +31,7 @@ class _EmptyCardDeckState extends State<EmptyCardDeck> {
                 opacity: 0.7,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(6.0),
                     color: Colors.white,
                   ),
                   height: 60.0,
@@ -62,11 +62,10 @@ class _EmptyCardDeckState extends State<EmptyCardDeck> {
       onWillAccept: (value) {
         PlayingCard cardAdded = value["cards"].last;
 
-        if (cardAdded.cardSuit == widget.cardSuit) {
-          if (CardType.values.indexOf(cardAdded.cardType) ==
-              widget.cardsAdded.length) {
-            return true;
-          }
+        if (cardAdded.cardSuit == widget.cardSuit &&
+            CardType.values.indexOf(cardAdded.cardType) ==
+                widget.cardsAdded.length) {
+          return true;
         }
 
         return false;

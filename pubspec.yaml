@@ -42,6 +42,9 @@ flutter:
     - images/clubs.png
     - images/spades.png
     - images/back_side.png
+    - images/bg_one.jpg
+    - images/logo.png
+    - images/spider.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

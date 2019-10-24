@@ -13,7 +13,7 @@ class TransformedCard extends StatefulWidget {
 
   TransformedCard({
     @required this.playingCard,
-    this.transformDistance = 15.0,
+    this.transformDistance = 16.0,
     this.transformIndex = 0,
     this.columnIndex,
     this.attachedCards,
@@ -44,8 +44,11 @@ class _TransformedCardState extends State<TransformedCard> {
             width: 40.0,
             decoration: BoxDecoration(
               color: Colors.blue,
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(8.0),
+              image: DecorationImage(
+                  image: ExactAssetImage('images/bg_one.jpg'),
+                  fit: BoxFit.fill),
+              border: Border.all(color: Colors.black45),
+              borderRadius: BorderRadius.circular(6.0),
             ),
           )
         : Draggable<Map>(
@@ -68,9 +71,9 @@ class _TransformedCardState extends State<TransformedCard> {
       color: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(6.0),
           color: Colors.white,
-          border: Border.all(color: Colors.black),
+          border: Border.all(color: Colors.black87),
         ),
         height: 60.0,
         width: 40,
